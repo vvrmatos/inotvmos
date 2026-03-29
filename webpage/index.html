@@ -511,6 +511,61 @@
       gap: 24px;
     }
 
+    .product-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      border-color: var(--border-light);
+    }
+
+    .product-card.featured .product-info {}
+
+    .product-card.featured .product-details {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .product-card.featured .product-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .product-card.featured .product-detail .detail-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(46, 94, 255, 0.1);
+      border: 1px solid rgba(46, 94, 255, 0.15);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-card.featured .product-detail .detail-icon svg {
+      width: 16px;
+      height: 16px;
+      color: var(--accent-blue);
+    }
+
+    .product-card.featured .product-detail strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .product-card.featured .product-detail span {
+      font-size: 0.825rem;
+      line-height: 1.5;
+    }
+
     .product-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -882,6 +937,7 @@
       .about .container { grid-template-columns: 1fr; gap: 48px; }
       .club .container { grid-template-columns: 1fr; gap: 48px; }
       .products-grid { grid-template-columns: 1fr; }
+      .product-card.featured { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 768px) {
@@ -1098,6 +1154,33 @@
         <p class="section-desc reveal">Beyond consulting, we build products that encode our methodology into software — making precision accessible at scale.</p>
       </div>
       <div class="products-grid">
+        <div class="product-card featured reveal">
+          <div class="product-glow" style="background: var(--accent-yellow);"></div>
+          <div class="product-info">
+            <span class="coming-badge live" style="background: rgba(240, 208, 0, 0.12); color: var(--accent-yellow);">Flagship</span>
+            <h3 style="font-size: 1.75rem;">INOTVMOS Standards</h3>
+            <p>Professional certification and standardization for software engineering. Standards evolve — so do markets, technologies, and what it means to be qualified. We develop industry titles and certifications that reflect real competence, not outdated checklists.</p>
+            <p style="margin-top: 12px;">Companies commission standards tailored to their needs. Professionals take rigorous exams and earn credentials — a registered, verifiable proof of expertise. Think CREA for software engineering.</p>
+          </div>
+          <div class="product-details">
+            <div class="product-detail">
+              <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div><strong>Custom Standards</strong><span>Companies hire us to develop standards that match their actual technical requirements — not generic frameworks.</span></div>
+            </div>
+            <div class="product-detail">
+              <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c6 3 12 0 12 0v-5"/></svg></div>
+              <div><strong>Certification Exams</strong><span>Rigorous assessments that validate real-world skills. Pass the exam, earn the title, join the registry.</span></div>
+            </div>
+            <div class="product-detail">
+              <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+              <div><strong>Professional Registry</strong><span>Certified professionals receive a registered credential — verifiable, portable, and recognized.</span></div>
+            </div>
+            <div class="product-detail">
+              <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+              <div><strong>Starting with Software Engineering</strong><span>Our first vertical. More industries to follow as we prove the model.</span></div>
+            </div>
+          </div>
+        </div>
         <div class="product-card reveal">
           <div class="product-glow" style="background: var(--accent-blue);"></div>
           <span class="coming-badge soon">Coming Soon</span>
