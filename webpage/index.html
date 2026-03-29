@@ -1432,6 +1432,98 @@
       .testimonials-grid { grid-template-columns: 1fr; }
     }
 
+    /* MATH FISH */
+    .math-fish-tank {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .math-fish {
+      position: absolute;
+      pointer-events: none;
+      animation: fish-swim linear infinite;
+      will-change: transform;
+    }
+
+    .math-fish.right {
+      animation-name: fish-swim-right;
+    }
+
+    .math-fish svg {
+      filter: drop-shadow(0 0 8px rgba(46, 94, 255, 0.15));
+    }
+
+    @keyframes fish-swim {
+      0% {
+        transform: translateX(calc(100vw + 100px)) translateY(0) scaleX(-1);
+      }
+      15% {
+        transform: translateX(calc(75vw)) translateY(-18px) scaleX(-1);
+      }
+      30% {
+        transform: translateX(calc(55vw)) translateY(12px) scaleX(-1);
+      }
+      50% {
+        transform: translateX(calc(35vw)) translateY(-8px) scaleX(-1);
+      }
+      70% {
+        transform: translateX(calc(15vw)) translateY(15px) scaleX(-1);
+      }
+      85% {
+        transform: translateX(calc(2vw)) translateY(-10px) scaleX(-1);
+      }
+      100% {
+        transform: translateX(-250px) translateY(5px) scaleX(-1);
+      }
+    }
+
+    @keyframes fish-swim-right {
+      0% {
+        transform: translateX(-250px) translateY(0) scaleX(1);
+      }
+      15% {
+        transform: translateX(calc(10vw)) translateY(15px) scaleX(1);
+      }
+      30% {
+        transform: translateX(calc(25vw)) translateY(-12px) scaleX(1);
+      }
+      50% {
+        transform: translateX(calc(45vw)) translateY(10px) scaleX(1);
+      }
+      70% {
+        transform: translateX(calc(65vw)) translateY(-15px) scaleX(1);
+      }
+      85% {
+        transform: translateX(calc(85vw)) translateY(8px) scaleX(1);
+      }
+      100% {
+        transform: translateX(calc(100vw + 100px)) translateY(-5px) scaleX(1);
+      }
+    }
+
+    @keyframes tail-wag {
+      0%, 100% { transform: rotate(-12deg); }
+      50% { transform: rotate(12deg); }
+    }
+
+    .fish-tail {
+      transform-origin: right center;
+      animation: tail-wag 0.6s ease-in-out infinite;
+    }
+
+    @keyframes fin-wave {
+      0%, 100% { transform: rotate(-8deg) scaleY(1); }
+      50% { transform: rotate(8deg) scaleY(0.85); }
+    }
+
+    .fish-fin {
+      transform-origin: bottom center;
+      animation: fin-wave 0.8s ease-in-out infinite;
+    }
+
     /* FLOATING MATH LAYER */
     .math-floats {
       position: fixed;
@@ -1762,6 +1854,9 @@
       </button>
     </div>
   </nav>
+
+  <!-- MATH FISH TANK -->
+  <div class="math-fish-tank" id="fishTank" aria-hidden="true"></div>
 
   <!-- GLOBAL FLOATING MATH LAYER -->
   <div class="math-floats" aria-hidden="true" id="mathFloats"></div>
@@ -2749,6 +2844,91 @@
   </footer>
 
   <script>
+    // Math fish spawner
+    (function() {
+      const tank = document.getElementById('fishTank');
+      const colors = [
+        { stroke: '#2e5eff', fill: 'rgba(46,94,255,0.06)' },
+        { stroke: '#e63030', fill: 'rgba(230,48,48,0.05)' },
+        { stroke: '#f0d000', fill: 'rgba(240,208,0,0.05)' },
+      ];
+      const formulas = [
+        'e^{iπ}+1=0', '∇²ψ=0', 'Σ1/n²', 'φ=(1+√5)/2',
+        'λ=h/p', 'F=ma', '∂f/∂x', 'P∩NP', '∫f(x)dx',
+        'det(A)', 'dS≥0', 'ζ(s)', 'x̄±σ', '∇×B'
+      ];
+      const bodyShapes = ['pentagon', 'hexagon', 'diamond', 'ellipse'];
+
+      function createFish() {
+        const c = colors[Math.floor(Math.random() * colors.length)];
+        const formula = formulas[Math.floor(Math.random() * formulas.length)];
+        const shape = bodyShapes[Math.floor(Math.random() * bodyShapes.length)];
+        const size = 60 + Math.random() * 80;
+        const goRight = Math.random() > 0.5;
+        const yPos = 10 + Math.random() * 80;
+        const dur = 25 + Math.random() * 35;
+        const tailSpeed = 0.4 + Math.random() * 0.5;
+        const finSpeed = 0.5 + Math.random() * 0.6;
+        const opacity = 0.06 + Math.random() * 0.06;
+
+        let bodyPath;
+        if (shape === 'hexagon') {
+          bodyPath = '<polygon points="30,5 55,15 55,45 30,55 5,45 5,15" stroke="' + c.stroke + '" fill="' + c.fill + '"/>';
+        } else if (shape === 'pentagon') {
+          bodyPath = '<polygon points="30,3 57,22 47,53 13,53 3,22" stroke="' + c.stroke + '" fill="' + c.fill + '"/>';
+        } else if (shape === 'diamond') {
+          bodyPath = '<polygon points="30,2 58,30 30,58 2,30" stroke="' + c.stroke + '" fill="' + c.fill + '"/>';
+        } else {
+          bodyPath = '<ellipse cx="30" cy="30" rx="28" ry="20" stroke="' + c.stroke + '" fill="' + c.fill + '"/>';
+        }
+
+        const svg = `<svg viewBox="-15 -10 105 75" width="${size}" height="${size * 0.7}" fill="none" stroke-width="1.2">
+          <!-- body -->
+          ${bodyPath}
+          <!-- inner pattern -->
+          <circle cx="30" cy="24" r="8" stroke="${c.stroke}" opacity="0.3" stroke-dasharray="2 2"/>
+          <circle cx="30" cy="36" r="5" stroke="${c.stroke}" opacity="0.2" stroke-dasharray="1.5 2"/>
+          <!-- formula text -->
+          <text x="30" y="32" text-anchor="middle" font-family="DM Serif Display,serif" font-size="7" fill="${c.stroke}" opacity="0.55" font-style="italic">${formula}</text>
+          <!-- eye -->
+          <circle cx="48" cy="24" r="3.5" stroke="${c.stroke}" fill="${c.fill}"/>
+          <circle cx="49" cy="23.5" r="1.2" fill="${c.stroke}" opacity="0.6"/>
+          <!-- tail -->
+          <g class="fish-tail" style="animation-duration:${tailSpeed}s">
+            <polygon points="-12,18 2,30 -12,42" stroke="${c.stroke}" fill="${c.fill}" opacity="0.8"/>
+            <line x1="-6" y1="24" x2="-1" y2="30" stroke="${c.stroke}" opacity="0.3"/>
+            <line x1="-6" y1="36" x2="-1" y2="30" stroke="${c.stroke}" opacity="0.3"/>
+          </g>
+          <!-- top fin -->
+          <g class="fish-fin" style="animation-duration:${finSpeed}s">
+            <polygon points="22,-6 38,-8 32,5" stroke="${c.stroke}" fill="${c.fill}" opacity="0.6"/>
+          </g>
+          <!-- bottom fin -->
+          <polygon points="22,55 34,62 28,50" stroke="${c.stroke}" fill="${c.fill}" opacity="0.4"/>
+          <!-- gill line -->
+          <path d="M42 18 Q44 30 42 42" stroke="${c.stroke}" opacity="0.25" fill="none"/>
+          <!-- pectoral fin -->
+          <ellipse cx="44" cy="40" rx="6" ry="3" stroke="${c.stroke}" fill="none" opacity="0.25" transform="rotate(-20 44 40)"/>
+        </svg>`;
+
+        const fish = document.createElement('div');
+        fish.className = 'math-fish' + (goRight ? ' right' : '');
+        fish.innerHTML = svg;
+        fish.style.top = yPos + '%';
+        fish.style.opacity = opacity;
+        fish.style.animationDuration = dur + 's';
+        fish.style.animationDelay = (Math.random() * 5) + 's';
+        tank.appendChild(fish);
+
+        setTimeout(() => { fish.remove(); }, (dur + 6) * 1000);
+      }
+
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => createFish(), i * 3000);
+      }
+      setInterval(createFish, 8000);
+    })();
+
     // Floating math particles
     (function() {
       const container = document.getElementById('mathFloats');
