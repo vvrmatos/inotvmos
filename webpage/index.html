@@ -1201,6 +1201,8 @@
     .case-tag.optimization { background: rgba(240, 208, 0, 0.12); color: var(--accent-yellow); }
     .case-tag.strategy { background: rgba(230, 48, 48, 0.12); color: var(--accent-red); }
     .case-tag.pricing { background: rgba(48, 200, 100, 0.12); color: #30c864; }
+    .case-tag.cybersec { background: rgba(200, 50, 255, 0.12); color: #c832ff; }
+    .case-tag.ai { background: rgba(0, 200, 220, 0.12); color: #00c8dc; }
     .case-tag.software { background: rgba(138, 138, 154, 0.12); color: var(--text-secondary); }
 
     .case-star {
@@ -2282,6 +2284,91 @@
           <div class="case-card-top">
             <div class="case-identity">
               <span class="case-num">05</span>
+              <h3>Sentinel Digital <span>Cybersecurity</span></h3>
+            </div>
+            <div class="case-tags">
+              <span class="case-tag cybersec">Cybersec</span>
+              <span class="case-tag software">Software</span>
+            </div>
+          </div>
+          <div class="case-star">
+            <div class="case-star-step s">
+              <div class="star-label">Situation</div>
+              <p>Mid-size bank processing 2M+ transactions/day. Legacy rule-based fraud detection flagging 4,200 false positives daily. Actual fraud slipping through at $1.2M/quarter in losses.</p>
+            </div>
+            <div class="case-star-step t">
+              <div class="star-label">Task</div>
+              <p>Build an anomaly detection system that catches real fraud in real time while cutting false positives by at least 80% — without disrupting transaction flow.</p>
+            </div>
+            <div class="case-star-step a">
+              <div class="star-label">Action</div>
+              <p>Designed a graph-based anomaly detection pipeline using network analysis on transaction flows. Modeled normal behavior with Gaussian Mixture Models and flagged deviations via Mahalanobis distance scoring in a streaming architecture.</p>
+              <div class="formula-note">D<sub>M</sub> = &radic;((x&minus;&mu;)<sup>T</sup> S<sup>&minus;1</sup> (x&minus;&mu;))</div>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>Apache Kafka</span>
+                <span>Neo4j</span>
+                <span>scikit-learn</span>
+                <span>Flink</span>
+                <span>Grafana</span>
+              </div>
+            </div>
+            <div class="case-star-step r">
+              <div class="star-label">Result</div>
+              <div class="result-metric">&darr; 91%</div>
+              <p>False positives reduced. Fraud detection rate up to 97.3%. Quarterly losses dropped from $1.2M to $89K. System processes alerts in under 200ms.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 6 -->
+        <div class="case-card reveal">
+          <div class="case-card-top">
+            <div class="case-identity">
+              <span class="case-num">06</span>
+              <h3>NovaMind Labs <span>Artificial Intelligence</span></h3>
+            </div>
+            <div class="case-tags">
+              <span class="case-tag ai">AI / ML</span>
+              <span class="case-tag software">Software</span>
+            </div>
+          </div>
+          <div class="case-star">
+            <div class="case-star-step s">
+              <div class="star-label">Situation</div>
+              <p>Healthcare diagnostics company with 500K+ radiology images. Existing CNN model had 76% accuracy on early-stage tumor detection. Clinician trust was low, regulatory approval stalled due to lack of explainability.</p>
+            </div>
+            <div class="case-star-step t">
+              <div class="star-label">Task</div>
+              <p>Push detection accuracy above 94% and build an explainable AI layer that satisfies both clinical review boards and regulatory standards for medical device software.</p>
+            </div>
+            <div class="case-star-step a">
+              <div class="star-label">Action</div>
+              <p>Redesigned the model architecture using an ensemble of Vision Transformers with attention-based saliency maps. Applied Bayesian uncertainty quantification so the model outputs confidence intervals — flagging low-confidence cases for human review instead of silent misclassification.</p>
+              <div class="formula-note">p(y|x) = &int; p(y|x,&theta;) p(&theta;|D) d&theta; &nbsp;|&nbsp; SHAP: &phi;<sub>i</sub> = &Sigma; |S|!(n&minus;|S|&minus;1)!/n! &middot; [f(S&cup;{i}) &minus; f(S)]</div>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>PyTorch</span>
+                <span>ViT</span>
+                <span>SHAP</span>
+                <span>Bayesian NN</span>
+                <span>ONNX</span>
+                <span>FastAPI</span>
+              </div>
+            </div>
+            <div class="case-star-step r">
+              <div class="star-label">Result</div>
+              <div class="result-metric">96.1%</div>
+              <p>Detection accuracy. Clinician trust score went from 3.1 to 4.7/5. Regulatory explainability requirements met. Model deployed across 12 hospitals, processing 2K scans/day.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 7 -->
+        <div class="case-card reveal">
+          <div class="case-card-top">
+            <div class="case-identity">
+              <span class="case-num">07</span>
               <h3>Ponto Retail <span>Retail</span></h3>
             </div>
             <div class="case-tags">
