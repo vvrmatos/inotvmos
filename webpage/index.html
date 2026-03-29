@@ -1128,52 +1128,66 @@
 
     .cases-header .section-desc { margin: 0 auto; }
 
-    .cases-table-wrap {
+    .cases-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .case-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
+      transition: border-color 0.3s;
     }
 
-    .cases-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+    .case-card:hover { border-color: var(--border-light); }
 
-    .cases-table thead th {
-      text-align: left;
-      padding: 16px 24px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      font-weight: 600;
+    .case-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 32px;
       border-bottom: 1px solid var(--border);
       background: var(--bg-elevated);
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .cases-table tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.2s;
+    .case-card-top .case-identity {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
-    .cases-table tbody tr:last-child { border-bottom: none; }
-
-    .cases-table tbody tr:hover { background: var(--bg-card-hover); }
-
-    .cases-table td {
-      padding: 20px 24px;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      vertical-align: middle;
+    .case-card-top .case-num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--accent-blue);
+      opacity: 0.3;
+      line-height: 1;
     }
 
-    .cases-table .case-client {
-      color: var(--text);
+    .case-card-top h3 {
+      font-size: 1.1rem;
       font-weight: 600;
     }
 
-    .cases-table .case-tag {
+    .case-card-top h3 span {
+      font-weight: 400;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-left: 8px;
+    }
+
+    .case-card-top .case-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .case-tag {
       display: inline-flex;
       padding: 3px 10px;
       border-radius: 100px;
@@ -1187,19 +1201,102 @@
     .case-tag.optimization { background: rgba(240, 208, 0, 0.12); color: var(--accent-yellow); }
     .case-tag.strategy { background: rgba(230, 48, 48, 0.12); color: var(--accent-red); }
     .case-tag.pricing { background: rgba(48, 200, 100, 0.12); color: #30c864; }
+    .case-tag.software { background: rgba(138, 138, 154, 0.12); color: var(--text-secondary); }
 
-    .cases-table .case-result {
-      color: var(--text);
+    .case-star {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .case-star-step {
+      padding: 28px 28px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .case-star-step:last-child { border-right: none; }
+
+    .case-star-step .star-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .case-star-step.s .star-label { color: var(--accent-red); }
+    .case-star-step.t .star-label { color: var(--accent-yellow); }
+    .case-star-step.a .star-label { color: var(--accent-blue); }
+    .case-star-step.r .star-label { color: #30c864; }
+
+    .case-star-step .star-label::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .case-star-step p {
+      font-size: 0.825rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .case-star-step .formula-note {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: rgba(46, 94, 255, 0.06);
+      border: 1px solid rgba(46, 94, 255, 0.1);
+      border-radius: 8px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      opacity: 0.8;
+    }
+
+    .case-star-step .tech-stack {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .case-star-step .tech-stack span {
+      padding: 2px 8px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
       font-weight: 500;
     }
 
-    .cases-table .case-result .up {
+    .case-star-step .result-metric {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
       color: #30c864;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 1024px) {
+      .case-star { grid-template-columns: repeat(2, 1fr); }
+      .case-star-step:nth-child(2) { border-right: none; }
+      .case-star-step:nth-child(1),
+      .case-star-step:nth-child(2) { border-bottom: 1px solid var(--border); }
     }
 
     @media (max-width: 768px) {
-      .cases-table-wrap { overflow-x: auto; }
-      .cases-table { min-width: 600px; }
+      .case-star { grid-template-columns: 1fr; }
+      .case-star-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .case-star-step:last-child { border-bottom: none; }
+      .case-card-top { padding: 20px 24px; }
+      .case-star-step { padding: 24px; }
     }
 
     /* TESTIMONIALS */
@@ -1805,55 +1902,216 @@
         <h2 class="section-title reveal">Results speak louder than theory.</h2>
         <p class="section-desc reveal">A snapshot of engagements where mathematical consulting translated into measurable business impact.</p>
       </div>
-      <div class="cases-table-wrap reveal">
-        <table class="cases-table">
-          <thead>
-            <tr>
-              <th>Client</th>
-              <th>Industry</th>
-              <th>Focus</th>
-              <th>Outcome</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="case-client">Steelbright Logistics</td>
-              <td>Supply Chain</td>
-              <td><span class="case-tag optimization">Optimization</span></td>
-              <td class="case-result"><span class="up">&uarr; 34%</span> operational efficiency</td>
-            </tr>
-            <tr>
-              <td class="case-client">Meridian Fintech</td>
-              <td>Financial Services</td>
-              <td><span class="case-tag growth">Growth</span></td>
-              <td class="case-result"><span class="up">&uarr; 2.8x</span> user acquisition rate</td>
-            </tr>
-            <tr>
-              <td class="case-client">VerdeAgro</td>
-              <td>Agriculture</td>
-              <td><span class="case-tag pricing">Pricing</span></td>
-              <td class="case-result"><span class="up">&uarr; 22%</span> revenue per hectare</td>
-            </tr>
-            <tr>
-              <td class="case-client">Kova Health</td>
-              <td>Healthcare</td>
-              <td><span class="case-tag strategy">Strategy</span></td>
-              <td class="case-result"><span class="up">&uarr; 3</span> new market entries in 12mo</td>
-            </tr>
-            <tr>
-              <td class="case-client">Arcline SaaS</td>
-              <td>Technology</td>
-              <td><span class="case-tag growth">Growth</span></td>
-              <td class="case-result"><span class="up">&uarr; 61%</span> ARR growth YoY</td>
-            </tr>
-            <tr>
-              <td class="case-client">Ponto Retail</td>
-              <td>Retail</td>
-              <td><span class="case-tag optimization">Optimization</span></td>
-              <td class="case-result"><span class="up">&uarr; 19%</span> margin improvement</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="cases-grid">
+
+        <!-- Case 1 -->
+        <div class="case-card reveal">
+          <div class="case-card-top">
+            <div class="case-identity">
+              <span class="case-num">01</span>
+              <h3>Steelbright Logistics <span>Supply Chain</span></h3>
+            </div>
+            <div class="case-tags">
+              <span class="case-tag optimization">Optimization</span>
+              <span class="case-tag software">Software</span>
+            </div>
+          </div>
+          <div class="case-star">
+            <div class="case-star-step s">
+              <div class="star-label">Situation</div>
+              <p>Fleet of 200+ vehicles with manual route planning. 38% deadhead miles, fuel costs escalating, and delivery SLAs missed 12% of the time.</p>
+            </div>
+            <div class="case-star-step t">
+              <div class="star-label">Task</div>
+              <p>Reduce operational waste and bring SLA compliance above 98% without expanding the fleet. Needed a system, not a one-off fix.</p>
+            </div>
+            <div class="case-star-step a">
+              <div class="star-label">Action</div>
+              <p>Built a real-time route optimization engine using linear programming and constraint satisfaction. Integrated with their TMS via REST API.</p>
+              <div class="formula-note">min &Sigma; c<sub>ij</sub>x<sub>ij</sub> &nbsp;s.t.&nbsp; &Sigma;x<sub>ij</sub> = 1, &nbsp;x &isin; {0,1}</div>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>OR-Tools</span>
+                <span>FastAPI</span>
+                <span>PostgreSQL</span>
+                <span>Docker</span>
+              </div>
+            </div>
+            <div class="case-star-step r">
+              <div class="star-label">Result</div>
+              <div class="result-metric">&uarr; 34%</div>
+              <p>Operational efficiency. Deadhead miles dropped to 11%. SLA compliance hit 99.2%. Fuel savings of $420K in first year.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 2 -->
+        <div class="case-card reveal">
+          <div class="case-card-top">
+            <div class="case-identity">
+              <span class="case-num">02</span>
+              <h3>Meridian Fintech <span>Financial Services</span></h3>
+            </div>
+            <div class="case-tags">
+              <span class="case-tag growth">Growth</span>
+              <span class="case-tag software">Software</span>
+            </div>
+          </div>
+          <div class="case-star">
+            <div class="case-star-step s">
+              <div class="star-label">Situation</div>
+              <p>User acquisition plateaued at 3K/month despite increasing ad spend. CAC was $48 and climbing. Marketing team had no attribution model.</p>
+            </div>
+            <div class="case-star-step t">
+              <div class="star-label">Task</div>
+              <p>Build a data-driven growth engine that reduces CAC and scales acquisition to 8K+/month with the same budget.</p>
+            </div>
+            <div class="case-star-step a">
+              <div class="star-label">Action</div>
+              <p>Developed a multi-touch attribution model using Markov chains. Built a custom dashboard with cohort analysis and LTV prediction pipeline.</p>
+              <div class="formula-note">P(conversion) = &Pi; R<sub>ij</sub> &middot; &Sigma; removal effects</div>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>Pandas</span>
+                <span>BigQuery</span>
+                <span>dbt</span>
+                <span>Next.js</span>
+                <span>D3.js</span>
+              </div>
+            </div>
+            <div class="case-star-step r">
+              <div class="star-label">Result</div>
+              <div class="result-metric">&uarr; 2.8x</div>
+              <p>User acquisition rate. CAC dropped to $17. Reallocated 60% of budget to highest-performing channels with mathematical certainty.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 3 -->
+        <div class="case-card reveal">
+          <div class="case-card-top">
+            <div class="case-identity">
+              <span class="case-num">03</span>
+              <h3>VerdeAgro <span>Agriculture</span></h3>
+            </div>
+            <div class="case-tags">
+              <span class="case-tag pricing">Pricing</span>
+              <span class="case-tag software">Software</span>
+            </div>
+          </div>
+          <div class="case-star">
+            <div class="case-star-step s">
+              <div class="star-label">Situation</div>
+              <p>Commodity pricing was gut-driven. Margins varied wildly between regions. No visibility into price elasticity or seasonal demand curves.</p>
+            </div>
+            <div class="case-star-step t">
+              <div class="star-label">Task</div>
+              <p>Create a dynamic pricing model that maximizes revenue per hectare while maintaining buyer relationships and contract stability.</p>
+            </div>
+            <div class="case-star-step a">
+              <div class="star-label">Action</div>
+              <p>Modeled price elasticity using log-log regression on 5 years of transaction data. Built a pricing simulator with Monte Carlo scenarios for contract negotiation.</p>
+              <div class="formula-note">ln(Q) = &alpha; + &beta; ln(P) + &gamma;X + &epsilon;</div>
+              <div class="tech-stack">
+                <span>R</span>
+                <span>Shiny</span>
+                <span>PostgreSQL</span>
+                <span>Monte Carlo</span>
+                <span>AWS Lambda</span>
+              </div>
+            </div>
+            <div class="case-star-step r">
+              <div class="star-label">Result</div>
+              <div class="result-metric">&uarr; 22%</div>
+              <p>Revenue per hectare. Zero client churn during transition. Pricing decisions now take minutes instead of weeks of internal debate.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 4 -->
+        <div class="case-card reveal">
+          <div class="case-card-top">
+            <div class="case-identity">
+              <span class="case-num">04</span>
+              <h3>Arcline SaaS <span>Technology</span></h3>
+            </div>
+            <div class="case-tags">
+              <span class="case-tag growth">Growth</span>
+              <span class="case-tag software">Software</span>
+            </div>
+          </div>
+          <div class="case-star">
+            <div class="case-star-step s">
+              <div class="star-label">Situation</div>
+              <p>ARR stalled at $2.1M. Churn was 8% monthly. No predictive model for at-risk accounts. Product team shipping features without usage data backing.</p>
+            </div>
+            <div class="case-star-step t">
+              <div class="star-label">Task</div>
+              <p>Reduce churn, increase expansion revenue, and build a data infrastructure that ties product decisions to retention math.</p>
+            </div>
+            <div class="case-star-step a">
+              <div class="star-label">Action</div>
+              <p>Built a churn prediction model using survival analysis and Cox proportional hazards. Deployed a real-time health scoring API that triggered automated CS workflows.</p>
+              <div class="formula-note">h(t) = h<sub>0</sub>(t) &middot; exp(&beta;<sub>1</sub>x<sub>1</sub> + &beta;<sub>2</sub>x<sub>2</sub> + ... + &beta;<sub>p</sub>x<sub>p</sub>)</div>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>scikit-survival</span>
+                <span>FastAPI</span>
+                <span>Redis</span>
+                <span>Segment</span>
+                <span>dbt</span>
+              </div>
+            </div>
+            <div class="case-star-step r">
+              <div class="star-label">Result</div>
+              <div class="result-metric">&uarr; 61%</div>
+              <p>ARR growth YoY. Monthly churn dropped to 2.4%. Expansion revenue up 3x. Product roadmap now driven by mathematically validated signals.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 5 -->
+        <div class="case-card reveal">
+          <div class="case-card-top">
+            <div class="case-identity">
+              <span class="case-num">05</span>
+              <h3>Ponto Retail <span>Retail</span></h3>
+            </div>
+            <div class="case-tags">
+              <span class="case-tag optimization">Optimization</span>
+              <span class="case-tag software">Software</span>
+            </div>
+          </div>
+          <div class="case-star">
+            <div class="case-star-step s">
+              <div class="star-label">Situation</div>
+              <p>120 stores, 15K SKUs. Inventory decisions were based on regional manager intuition. Overstock on 40% of items, stockouts on 18%. Margins eroding.</p>
+            </div>
+            <div class="case-star-step t">
+              <div class="star-label">Task</div>
+              <p>Build a demand forecasting and inventory optimization system that balances stock levels across all stores with minimal overstock and zero stockouts on top sellers.</p>
+            </div>
+            <div class="case-star-step a">
+              <div class="star-label">Action</div>
+              <p>Deployed a time-series forecasting pipeline using Prophet + gradient boosting ensemble. Built an automated replenishment engine with safety stock calculated via service-level optimization.</p>
+              <div class="formula-note">SS = z<sub>&alpha;</sub> &middot; &sigma;<sub>d</sub> &middot; &radic;L &nbsp;|&nbsp; forecast: y&#770; = trend + seasonality + regressors</div>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>Prophet</span>
+                <span>XGBoost</span>
+                <span>Airflow</span>
+                <span>Snowflake</span>
+                <span>React</span>
+              </div>
+            </div>
+            <div class="case-star-step r">
+              <div class="star-label">Result</div>
+              <div class="result-metric">&uarr; 19%</div>
+              <p>Margin improvement. Stockouts on top sellers dropped to 0.4%. Overstock reduced by 62%. $1.8M freed from dead inventory in 6 months.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
