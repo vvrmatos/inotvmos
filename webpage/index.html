@@ -1118,6 +1118,193 @@
       color: var(--text-muted);
     }
 
+    /* CASES */
+    .cases { background: var(--bg-elevated); }
+
+    .cases-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .cases-header .section-desc { margin: 0 auto; }
+
+    .cases-table-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .cases-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .cases-table thead th {
+      text-align: left;
+      padding: 16px 24px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-elevated);
+    }
+
+    .cases-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .cases-table tbody tr:last-child { border-bottom: none; }
+
+    .cases-table tbody tr:hover { background: var(--bg-card-hover); }
+
+    .cases-table td {
+      padding: 20px 24px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      vertical-align: middle;
+    }
+
+    .cases-table .case-client {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .cases-table .case-tag {
+      display: inline-flex;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .case-tag.growth { background: rgba(46, 94, 255, 0.12); color: var(--accent-blue); }
+    .case-tag.optimization { background: rgba(240, 208, 0, 0.12); color: var(--accent-yellow); }
+    .case-tag.strategy { background: rgba(230, 48, 48, 0.12); color: var(--accent-red); }
+    .case-tag.pricing { background: rgba(48, 200, 100, 0.12); color: #30c864; }
+
+    .cases-table .case-result {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .cases-table .case-result .up {
+      color: #30c864;
+    }
+
+    @media (max-width: 768px) {
+      .cases-table-wrap { overflow-x: auto; }
+      .cases-table { min-width: 600px; }
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .testimonials-header .section-desc { margin: 0 auto; }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .testimonial-card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-4px);
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-stars svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--accent-yellow);
+    }
+
+    .testimonial-quote {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      font-style: italic;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+
+    .testimonial-quote::before {
+      content: '\201C';
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--accent-blue);
+      opacity: 0.4;
+      line-height: 0;
+      vertical-align: -0.5em;
+      margin-right: 4px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      flex-shrink: 0;
+    }
+
+    .testimonial-author-info h5 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .testimonial-author-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 1024px) {
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+
     /* SCROLL ANIMATIONS */
     .reveal {
       opacity: 0;
@@ -1604,6 +1791,182 @@
           <div class="step-num">03</div>
           <h3>Execute & Measure</h3>
           <p>We work alongside you to implement the strategy, track KPIs, and iterate — ensuring every decision compounds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="cases" id="cases">
+    <div class="container">
+      <div class="cases-header">
+        <div class="section-label">Case Studies</div>
+        <h2 class="section-title reveal">Results speak louder than theory.</h2>
+        <p class="section-desc reveal">A snapshot of engagements where mathematical consulting translated into measurable business impact.</p>
+      </div>
+      <div class="cases-table-wrap reveal">
+        <table class="cases-table">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Industry</th>
+              <th>Focus</th>
+              <th>Outcome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="case-client">Steelbright Logistics</td>
+              <td>Supply Chain</td>
+              <td><span class="case-tag optimization">Optimization</span></td>
+              <td class="case-result"><span class="up">&uarr; 34%</span> operational efficiency</td>
+            </tr>
+            <tr>
+              <td class="case-client">Meridian Fintech</td>
+              <td>Financial Services</td>
+              <td><span class="case-tag growth">Growth</span></td>
+              <td class="case-result"><span class="up">&uarr; 2.8x</span> user acquisition rate</td>
+            </tr>
+            <tr>
+              <td class="case-client">VerdeAgro</td>
+              <td>Agriculture</td>
+              <td><span class="case-tag pricing">Pricing</span></td>
+              <td class="case-result"><span class="up">&uarr; 22%</span> revenue per hectare</td>
+            </tr>
+            <tr>
+              <td class="case-client">Kova Health</td>
+              <td>Healthcare</td>
+              <td><span class="case-tag strategy">Strategy</span></td>
+              <td class="case-result"><span class="up">&uarr; 3</span> new market entries in 12mo</td>
+            </tr>
+            <tr>
+              <td class="case-client">Arcline SaaS</td>
+              <td>Technology</td>
+              <td><span class="case-tag growth">Growth</span></td>
+              <td class="case-result"><span class="up">&uarr; 61%</span> ARR growth YoY</td>
+            </tr>
+            <tr>
+              <td class="case-client">Ponto Retail</td>
+              <td>Retail</td>
+              <td><span class="case-tag optimization">Optimization</span></td>
+              <td class="case-result"><span class="up">&uarr; 19%</span> margin improvement</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="testimonials-header">
+        <div class="section-label">What Clients Say</div>
+        <h2 class="section-title reveal">Built on trust, proven by results.</h2>
+        <p class="section-desc reveal">Hear from business owners and executives who partnered with INOTVMOS.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">They didn't just give us advice — they gave us a formula. Our logistics costs dropped and our throughput jumped in weeks, not months. INOTVMOS sees what others don't.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">RM</div>
+            <div class="testimonial-author-info">
+              <h5>Rafael Moreira</h5>
+              <p>COO, Steelbright Logistics</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">We were scaling blind. INOTVMOS built us a growth model that told us exactly where to invest and when. Our acquisition cost halved and we tripled sign-ups.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">CS</div>
+            <div class="testimonial-author-info">
+              <h5>Carolina Santos</h5>
+              <p>CEO, Meridian Fintech</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">Pricing was always gut feeling for us. They turned it into a science. We raised prices strategically and revenue went up without losing a single client. Incredible work.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">DL</div>
+            <div class="testimonial-author-info">
+              <h5>Daniel Lima</h5>
+              <p>Founder, VerdeAgro</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">The INOTVMOS Club changed how we operate. Monthly sessions keep us sharp, and the client exposure alone has paid for the membership ten times over.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">AT</div>
+            <div class="testimonial-author-info">
+              <h5>Ana Takeda</h5>
+              <p>Managing Director, Kova Health</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">Most consultants talk in buzzwords. These people talk in numbers. They showed us exactly which levers to pull and our ARR growth speaks for itself — 61% year over year.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">MP</div>
+            <div class="testimonial-author-info">
+              <h5>Marcos Patel</h5>
+              <p>CTO, Arcline SaaS</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">We were bleeding margin and couldn't figure out why. INOTVMOS mapped every cost center mathematically and within two months we turned it around. Wish we'd found them sooner.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">LF</div>
+            <div class="testimonial-author-info">
+              <h5>Lucia Ferreira</h5>
+              <p>VP Operations, Ponto Retail</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
