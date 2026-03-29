@@ -369,35 +369,235 @@
       background-size: 40px 40px;
     }
 
-    .about-visual-card .quote-block {
-      z-index: 1;
-      text-align: left;
-      padding: 40px;
-      width: 100%;
+    .about-visual-card {
+      aspect-ratio: auto;
+      min-height: 520px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
     }
 
-    .about-visual-card .quote-text {
+    .about-visual-card .math-objects {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .math-obj {
+      position: absolute;
+      opacity: 0.07;
+    }
+
+    /* Möbius strip */
+    .mobius {
+      width: 120px;
+      height: 120px;
+      top: 8%;
+      right: 10%;
+      animation: float-rotate 20s linear infinite;
+    }
+
+    .mobius svg { width: 100%; height: 100%; }
+
+    /* Tesseract / 4D hypercube */
+    .tesseract {
+      width: 100px;
+      height: 100px;
+      bottom: 12%;
+      left: 8%;
+      animation: float-rotate 25s linear infinite reverse;
+    }
+
+    .tesseract svg { width: 100%; height: 100%; }
+
+    /* Torus */
+    .torus {
+      width: 80px;
+      height: 80px;
+      top: 55%;
+      right: 5%;
+      animation: float-rotate 18s linear infinite;
+      animation-delay: -5s;
+    }
+
+    .torus svg { width: 100%; height: 100%; }
+
+    /* Klein bottle */
+    .klein {
+      width: 90px;
+      height: 90px;
+      bottom: 5%;
+      right: 35%;
+      animation: float-rotate 22s linear infinite reverse;
+      animation-delay: -8s;
+    }
+
+    .klein svg { width: 100%; height: 100%; }
+
+    /* Icosahedron */
+    .icosa {
+      width: 70px;
+      height: 70px;
+      top: 10%;
+      left: 15%;
+      animation: float-rotate 16s linear infinite;
+      animation-delay: -3s;
+    }
+
+    .icosa svg { width: 100%; height: 100%; }
+
+    @keyframes float-rotate {
+      0% { transform: rotate(0deg) translateY(0px); }
+      25% { transform: rotate(90deg) translateY(-10px); }
+      50% { transform: rotate(180deg) translateY(0px); }
+      75% { transform: rotate(270deg) translateY(10px); }
+      100% { transform: rotate(360deg) translateY(0px); }
+    }
+
+    /* Formulae layer */
+    .formulae-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px 28px;
+      pointer-events: none;
+    }
+
+    .formulae-layer .formula-line {
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      opacity: 0.25;
+      white-space: nowrap;
+    }
+
+    .formulae-layer .formula-line:nth-child(even) {
+      text-align: right;
+    }
+
+    .formulae-layer .formula-line .hl {
+      color: var(--accent-blue);
+      opacity: 0.6;
+    }
+
+    /* Quote carousel */
+    .quote-carousel {
+      z-index: 2;
+      width: 100%;
+      padding: 48px 40px;
+      position: relative;
+    }
+
+    .quote-slide {
+      display: none;
+      animation: quote-in 0.8s ease;
+    }
+
+    .quote-slide.active { display: block; }
+
+    @keyframes quote-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .quote-slide .quote-number {
       font-family: var(--font-display);
-      font-size: 1.6rem;
+      font-size: 3.5rem;
+      color: var(--accent-blue);
+      opacity: 0.15;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .quote-slide .quote-text {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
       font-style: italic;
       color: var(--text);
       line-height: 1.5;
-      margin-bottom: 20px;
-      position: relative;
-      padding-left: 24px;
-      border-left: 3px solid var(--accent-blue);
+      margin-bottom: 16px;
+      padding-left: 20px;
+      border-left: 2px solid var(--accent-blue);
     }
 
-    .about-visual-card .quote-source {
-      font-size: 0.8rem;
+    .quote-slide .quote-source {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding-left: 24px;
+      padding-left: 20px;
     }
 
-    .about-visual-card .quote-source span {
+    .quote-slide .quote-source span {
       color: var(--text-secondary);
+    }
+
+    .quote-nav {
+      z-index: 2;
+      width: 100%;
+      padding: 0 40px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .quote-dots {
+      display: flex;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .quote-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      opacity: 0.3;
+      transition: opacity 0.3s, background 0.3s, width 0.3s;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+
+    .quote-dot.active {
+      opacity: 1;
+      background: var(--accent-blue);
+      width: 20px;
+      border-radius: 3px;
+    }
+
+    .quote-arrows {
+      display: flex;
+      gap: 6px;
+    }
+
+    .quote-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .quote-arrow:hover {
+      border-color: var(--text-secondary);
+      color: var(--text);
+    }
+
+    .quote-arrow svg {
+      width: 14px;
+      height: 14px;
     }
 
     .about-points {
@@ -1081,10 +1281,123 @@
       <div class="about-visual reveal">
         <div class="about-visual-card">
           <div class="grid-pattern"></div>
-          <div class="quote-block">
-            <p class="quote-text">&ldquo;Mathematics is the language of nature.&rdquo;</p>
-            <p class="quote-source"><span>Max Cohen</span> &mdash; Pi, 1998</p>
+
+          <!-- Floating formulae -->
+          <div class="formulae-layer">
+            <div class="formula-line">&nabla; &times; <span class="hl">E</span> = &minus;&part;<span class="hl">B</span>/&part;t</div>
+            <div class="formula-line">&Sigma; F(x<sub>i</sub>) &middot; &Delta;x &rarr; &int; <span class="hl">f(x)</span> dx</div>
+            <div class="formula-line">e<sup>i&pi;</sup> + 1 = <span class="hl">0</span></div>
+            <div class="formula-line">&part;&sup2;u/&part;t&sup2; = <span class="hl">c&sup2;</span> &nabla;&sup2;u</div>
+            <div class="formula-line">P(A|B) = P(B|A) &middot; <span class="hl">P(A)</span> / P(B)</div>
+            <div class="formula-line">det(<span class="hl">A</span> &minus; &lambda;I) = 0</div>
+            <div class="formula-line">d<span class="hl">S</span>/dt &ge; 0</div>
+            <div class="formula-line">&phi; = (1 + &radic;<span class="hl">5</span>) / 2</div>
           </div>
+
+          <!-- Animated math objects -->
+          <div class="math-objects">
+            <!-- Möbius strip -->
+            <div class="math-obj mobius">
+              <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M100 40 C140 40, 170 70, 170 100 C170 130, 140 160, 100 160 C60 160, 30 130, 30 100 C30 70, 60 40, 100 40 Z" stroke="var(--accent-blue)"/>
+                <path d="M100 60 C130 60, 150 80, 150 100 C150 120, 130 140, 100 140 C70 140, 50 120, 50 100 C50 80, 70 60, 100 60 Z" stroke="var(--accent-blue)"/>
+                <line x1="100" y1="40" x2="100" y2="60" stroke="var(--accent-blue)"/>
+                <line x1="170" y1="100" x2="150" y2="100" stroke="var(--accent-blue)"/>
+                <line x1="100" y1="160" x2="100" y2="140" stroke="var(--accent-blue)"/>
+                <line x1="30" y1="100" x2="50" y2="100" stroke="var(--accent-blue)"/>
+              </svg>
+            </div>
+            <!-- Tesseract (4D hypercube projection) -->
+            <div class="math-obj tesseract">
+              <svg viewBox="0 0 200 200" fill="none" stroke="var(--accent-red)" stroke-width="1">
+                <rect x="30" y="30" width="80" height="80"/>
+                <rect x="90" y="90" width="80" height="80"/>
+                <line x1="30" y1="30" x2="90" y2="90"/>
+                <line x1="110" y1="30" x2="170" y2="90"/>
+                <line x1="30" y1="110" x2="90" y2="170"/>
+                <line x1="110" y1="110" x2="170" y2="170"/>
+              </svg>
+            </div>
+            <!-- Torus wireframe -->
+            <div class="math-obj torus">
+              <svg viewBox="0 0 200 200" fill="none" stroke="var(--accent-yellow)" stroke-width="1">
+                <ellipse cx="100" cy="100" rx="80" ry="30"/>
+                <ellipse cx="100" cy="100" rx="80" ry="50"/>
+                <ellipse cx="100" cy="100" rx="30" ry="50"/>
+                <ellipse cx="100" cy="100" rx="10" ry="30" stroke-dasharray="4 3"/>
+              </svg>
+            </div>
+            <!-- Penrose triangle -->
+            <div class="math-obj klein">
+              <svg viewBox="0 0 200 200" fill="none" stroke="var(--accent-blue)" stroke-width="1.2">
+                <polygon points="100,20 180,160 20,160"/>
+                <polygon points="100,50 155,140 45,140"/>
+                <line x1="100" y1="20" x2="100" y2="50"/>
+                <line x1="180" y1="160" x2="155" y2="140"/>
+                <line x1="20" y1="160" x2="45" y2="140"/>
+              </svg>
+            </div>
+            <!-- Golden spiral -->
+            <div class="math-obj icosa">
+              <svg viewBox="0 0 200 200" fill="none" stroke="var(--accent-yellow)" stroke-width="1">
+                <path d="M100 100 A50 50 0 0 1 150 100 A30 30 0 0 1 120 130 A20 20 0 0 1 100 110 A12 12 0 0 1 112 100 A8 8 0 0 1 104 108"/>
+                <rect x="50" y="50" width="100" height="100" stroke-dasharray="3 4"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Quote carousel -->
+          <div class="quote-carousel" id="quoteCarousel">
+            <div class="quote-slide active">
+              <div class="quote-number">01</div>
+              <p class="quote-text">&ldquo;Mathematics is the language of nature.&rdquo;</p>
+              <p class="quote-source"><span>Max Cohen</span> &mdash; Pi, 1998</p>
+            </div>
+            <div class="quote-slide">
+              <div class="quote-number">02</div>
+              <p class="quote-text">&ldquo;Everything around us can be represented and understood through numbers.&rdquo;</p>
+              <p class="quote-source"><span>Max Cohen</span> &mdash; Pi, 1998</p>
+            </div>
+            <div class="quote-slide">
+              <div class="quote-number">03</div>
+              <p class="quote-text">&ldquo;If you graph the numbers of any system, patterns emerge.&rdquo;</p>
+              <p class="quote-source"><span>Max Cohen</span> &mdash; Pi, 1998</p>
+            </div>
+            <div class="quote-slide">
+              <div class="quote-number">04</div>
+              <p class="quote-text">&ldquo;Therefore, there are patterns everywhere in nature.&rdquo;</p>
+              <p class="quote-source"><span>Max Cohen</span> &mdash; Pi, 1998</p>
+            </div>
+            <div class="quote-slide">
+              <div class="quote-number">05</div>
+              <p class="quote-text">&ldquo;As soon as you discard scientific rigor, you are no longer a mathematician. You are a numerologist.&rdquo;</p>
+              <p class="quote-source"><span>Sol Robeson</span> &mdash; Pi, 1998</p>
+            </div>
+            <div class="quote-slide">
+              <div class="quote-number">06</div>
+              <p class="quote-text">&ldquo;The number is nothing. It&rsquo;s the meaning. It&rsquo;s the syntax.&rdquo;</p>
+              <p class="quote-source"><span>Sol Robeson</span> &mdash; Pi, 1998</p>
+            </div>
+            <div class="quote-slide">
+              <div class="quote-number">07</div>
+              <p class="quote-text">&ldquo;When I was a little kid, my mother told me not to stare into the sun. So once, when I was six, I did.&rdquo;</p>
+              <p class="quote-source"><span>Max Cohen</span> &mdash; Pi, 1998</p>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <div class="quote-nav">
+            <div class="quote-dots" id="quoteDots"></div>
+            <div class="quote-arrows">
+              <button class="quote-arrow" id="quotePrev" aria-label="Previous quote">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="quote-arrow" id="quoteNext" aria-label="Next quote">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -1413,6 +1726,40 @@
 
     const statsSection = document.getElementById('stats');
     if (statsSection) counterObserver.observe(statsSection);
+
+    // Quote carousel
+    const slides = document.querySelectorAll('.quote-slide');
+    const dotsContainer = document.getElementById('quoteDots');
+    const prevBtn = document.getElementById('quotePrev');
+    const nextBtn = document.getElementById('quoteNext');
+    let currentQuote = 0;
+    let quoteInterval;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'quote-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Quote ' + (i + 1));
+      dot.addEventListener('click', () => goToQuote(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function goToQuote(index) {
+      slides[currentQuote].classList.remove('active');
+      dotsContainer.children[currentQuote].classList.remove('active');
+      currentQuote = (index + slides.length) % slides.length;
+      slides[currentQuote].classList.add('active');
+      dotsContainer.children[currentQuote].classList.add('active');
+      resetInterval();
+    }
+
+    function resetInterval() {
+      clearInterval(quoteInterval);
+      quoteInterval = setInterval(() => goToQuote(currentQuote + 1), 6000);
+    }
+
+    prevBtn.addEventListener('click', () => goToQuote(currentQuote - 1));
+    nextBtn.addEventListener('click', () => goToQuote(currentQuote + 1));
+    resetInterval();
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
