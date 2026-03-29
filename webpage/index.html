@@ -1432,7 +1432,7 @@
       .testimonials-grid { grid-template-columns: 1fr; }
     }
 
-    /* MATH FISH */
+    /* MATH FISH — top-down wireframe */
     .math-fish-tank {
       position: fixed;
       inset: 0;
@@ -1441,87 +1441,9 @@
       overflow: hidden;
     }
 
-    .math-fish {
-      position: absolute;
-      pointer-events: none;
-      animation: fish-swim linear infinite;
-      will-change: transform;
-    }
-
-    .math-fish.right {
-      animation-name: fish-swim-right;
-    }
-
-    .math-fish svg {
-      filter: drop-shadow(0 0 8px rgba(46, 94, 255, 0.15));
-    }
-
-    @keyframes fish-swim {
-      0% {
-        transform: translateX(calc(100vw + 100px)) translateY(0) scaleX(-1);
-      }
-      15% {
-        transform: translateX(calc(75vw)) translateY(-18px) scaleX(-1);
-      }
-      30% {
-        transform: translateX(calc(55vw)) translateY(12px) scaleX(-1);
-      }
-      50% {
-        transform: translateX(calc(35vw)) translateY(-8px) scaleX(-1);
-      }
-      70% {
-        transform: translateX(calc(15vw)) translateY(15px) scaleX(-1);
-      }
-      85% {
-        transform: translateX(calc(2vw)) translateY(-10px) scaleX(-1);
-      }
-      100% {
-        transform: translateX(-250px) translateY(5px) scaleX(-1);
-      }
-    }
-
-    @keyframes fish-swim-right {
-      0% {
-        transform: translateX(-250px) translateY(0) scaleX(1);
-      }
-      15% {
-        transform: translateX(calc(10vw)) translateY(15px) scaleX(1);
-      }
-      30% {
-        transform: translateX(calc(25vw)) translateY(-12px) scaleX(1);
-      }
-      50% {
-        transform: translateX(calc(45vw)) translateY(10px) scaleX(1);
-      }
-      70% {
-        transform: translateX(calc(65vw)) translateY(-15px) scaleX(1);
-      }
-      85% {
-        transform: translateX(calc(85vw)) translateY(8px) scaleX(1);
-      }
-      100% {
-        transform: translateX(calc(100vw + 100px)) translateY(-5px) scaleX(1);
-      }
-    }
-
-    @keyframes tail-wag {
-      0%, 100% { transform: rotate(-12deg); }
-      50% { transform: rotate(12deg); }
-    }
-
-    .fish-tail {
-      transform-origin: right center;
-      animation: tail-wag 0.6s ease-in-out infinite;
-    }
-
-    @keyframes fin-wave {
-      0%, 100% { transform: rotate(-8deg) scaleY(1); }
-      50% { transform: rotate(8deg) scaleY(0.85); }
-    }
-
-    .fish-fin {
-      transform-origin: bottom center;
-      animation: fin-wave 0.8s ease-in-out infinite;
+    .math-fish-tank canvas {
+      width: 100%;
+      height: 100%;
     }
 
     /* FLOATING MATH LAYER */
@@ -2844,89 +2766,239 @@
   </footer>
 
   <script>
-    // Math fish spawner
+    // Math fish — fluid top-down wireframe on canvas
     (function() {
       const tank = document.getElementById('fishTank');
-      const colors = [
-        { stroke: '#2e5eff', fill: 'rgba(46,94,255,0.06)' },
-        { stroke: '#e63030', fill: 'rgba(230,48,48,0.05)' },
-        { stroke: '#f0d000', fill: 'rgba(240,208,0,0.05)' },
-      ];
+      const canvas = document.createElement('canvas');
+      tank.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
       const formulas = [
-        'e^{iπ}+1=0', '∇²ψ=0', 'Σ1/n²', 'φ=(1+√5)/2',
-        'λ=h/p', 'F=ma', '∂f/∂x', 'P∩NP', '∫f(x)dx',
-        'det(A)', 'dS≥0', 'ζ(s)', 'x̄±σ', '∇×B'
+        'e^iπ+1=0','∇²ψ=0','Σ1/n²','φ=(1+√5)/2',
+        'λ=h/p','F=ma','∂f/∂x','∫f(x)dx',
+        'det(A)','dS≥0','ζ(s)','∇×B','P(A|B)','x̄±σ'
       ];
-      const bodyShapes = ['pentagon', 'hexagon', 'diamond', 'ellipse'];
 
-      function createFish() {
-        const c = colors[Math.floor(Math.random() * colors.length)];
-        const formula = formulas[Math.floor(Math.random() * formulas.length)];
-        const shape = bodyShapes[Math.floor(Math.random() * bodyShapes.length)];
-        const size = 60 + Math.random() * 80;
-        const goRight = Math.random() > 0.5;
-        const yPos = 10 + Math.random() * 80;
-        const dur = 25 + Math.random() * 35;
-        const tailSpeed = 0.4 + Math.random() * 0.5;
-        const finSpeed = 0.5 + Math.random() * 0.6;
-        const opacity = 0.06 + Math.random() * 0.06;
+      const palette = [
+        {r:46,g:94,b:255},
+        {r:230,g:48,b:48},
+        {r:240,g:208,b:0},
+      ];
 
-        let bodyPath;
-        if (shape === 'hexagon') {
-          bodyPath = '<polygon points="30,5 55,15 55,45 30,55 5,45 5,15" stroke="' + c.stroke + '" fill="' + c.fill + '"/>';
-        } else if (shape === 'pentagon') {
-          bodyPath = '<polygon points="30,3 57,22 47,53 13,53 3,22" stroke="' + c.stroke + '" fill="' + c.fill + '"/>';
-        } else if (shape === 'diamond') {
-          bodyPath = '<polygon points="30,2 58,30 30,58 2,30" stroke="' + c.stroke + '" fill="' + c.fill + '"/>';
-        } else {
-          bodyPath = '<ellipse cx="30" cy="30" rx="28" ry="20" stroke="' + c.stroke + '" fill="' + c.fill + '"/>';
+      class Fish {
+        constructor() {
+          this.reset();
         }
+        reset() {
+          const c = palette[Math.floor(Math.random()*palette.length)];
+          this.cr = c.r; this.cg = c.g; this.cb = c.b;
+          this.size = 40 + Math.random()*50;
+          this.dir = Math.random() > 0.5 ? 1 : -1;
+          this.x = this.dir === 1 ? -this.size*3 : canvas.width + this.size*3;
+          this.y = canvas.height * (0.08 + Math.random()*0.84);
+          this.speed = 0.4 + Math.random()*0.6;
+          this.waveAmp = 15 + Math.random()*25;
+          this.waveFreq = 0.003 + Math.random()*0.004;
+          this.tailPhase = Math.random()*Math.PI*2;
+          this.tailSpeed = 3 + Math.random()*3;
+          this.formula = formulas[Math.floor(Math.random()*formulas.length)];
+          this.opacity = 0.07 + Math.random()*0.06;
+          this.scanOffset = Math.random()*100;
+          this.spineSegments = 8 + Math.floor(Math.random()*4);
+          this.alive = true;
+        }
+        update(t) {
+          this.x += this.speed * this.dir;
+          this.baseY = this.y + Math.sin(t * this.waveFreq + this.scanOffset) * this.waveAmp;
+          this.tailAngle = Math.sin(t * 0.005 * this.tailSpeed + this.tailPhase) * 0.35;
+          if ((this.dir === 1 && this.x > canvas.width + this.size*3) ||
+              (this.dir === -1 && this.x < -this.size*3)) {
+            this.reset();
+          }
+        }
+        draw(ctx, t) {
+          const s = this.size;
+          const x = this.x;
+          const y = this.baseY;
+          const a = this.dir === 1 ? 0 : Math.PI;
+          const ta = this.tailAngle;
 
-        const svg = `<svg viewBox="-15 -10 105 75" width="${size}" height="${size * 0.7}" fill="none" stroke-width="1.2">
-          <!-- body -->
-          ${bodyPath}
-          <!-- inner pattern -->
-          <circle cx="30" cy="24" r="8" stroke="${c.stroke}" opacity="0.3" stroke-dasharray="2 2"/>
-          <circle cx="30" cy="36" r="5" stroke="${c.stroke}" opacity="0.2" stroke-dasharray="1.5 2"/>
-          <!-- formula text -->
-          <text x="30" y="32" text-anchor="middle" font-family="DM Serif Display,serif" font-size="7" fill="${c.stroke}" opacity="0.55" font-style="italic">${formula}</text>
-          <!-- eye -->
-          <circle cx="48" cy="24" r="3.5" stroke="${c.stroke}" fill="${c.fill}"/>
-          <circle cx="49" cy="23.5" r="1.2" fill="${c.stroke}" opacity="0.6"/>
-          <!-- tail -->
-          <g class="fish-tail" style="animation-duration:${tailSpeed}s">
-            <polygon points="-12,18 2,30 -12,42" stroke="${c.stroke}" fill="${c.fill}" opacity="0.8"/>
-            <line x1="-6" y1="24" x2="-1" y2="30" stroke="${c.stroke}" opacity="0.3"/>
-            <line x1="-6" y1="36" x2="-1" y2="30" stroke="${c.stroke}" opacity="0.3"/>
-          </g>
-          <!-- top fin -->
-          <g class="fish-fin" style="animation-duration:${finSpeed}s">
-            <polygon points="22,-6 38,-8 32,5" stroke="${c.stroke}" fill="${c.fill}" opacity="0.6"/>
-          </g>
-          <!-- bottom fin -->
-          <polygon points="22,55 34,62 28,50" stroke="${c.stroke}" fill="${c.fill}" opacity="0.4"/>
-          <!-- gill line -->
-          <path d="M42 18 Q44 30 42 42" stroke="${c.stroke}" opacity="0.25" fill="none"/>
-          <!-- pectoral fin -->
-          <ellipse cx="44" cy="40" rx="6" ry="3" stroke="${c.stroke}" fill="none" opacity="0.25" transform="rotate(-20 44 40)"/>
-        </svg>`;
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(a);
+          ctx.globalAlpha = this.opacity;
 
-        const fish = document.createElement('div');
-        fish.className = 'math-fish' + (goRight ? ' right' : '');
-        fish.innerHTML = svg;
-        fish.style.top = yPos + '%';
-        fish.style.opacity = opacity;
-        fish.style.animationDuration = dur + 's';
-        fish.style.animationDelay = (Math.random() * 5) + 's';
-        tank.appendChild(fish);
+          const col = `${this.cr},${this.cg},${this.cb}`;
 
-        setTimeout(() => { fish.remove(); }, (dur + 6) * 1000);
+          // Body outline — smooth organic fish from top
+          ctx.beginPath();
+          ctx.moveTo(s*1.3, 0); // nose
+          ctx.bezierCurveTo(s*1.0, -s*0.35, s*0.5, -s*0.45, 0, -s*0.3);
+          ctx.bezierCurveTo(-s*0.4, -s*0.2, -s*0.7, -s*0.1, -s*0.8, 0);
+          ctx.bezierCurveTo(-s*0.7, s*0.1, -s*0.4, s*0.2, 0, s*0.3);
+          ctx.bezierCurveTo(s*0.5, s*0.45, s*1.0, s*0.35, s*1.3, 0);
+          ctx.closePath();
+          ctx.fillStyle = `rgba(${col},0.03)`;
+          ctx.fill();
+          ctx.strokeStyle = `rgba(${col},0.5)`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+
+          // Wireframe scan lines across body
+          for (let i = 0; i < 7; i++) {
+            const lx = -s*0.6 + (s*1.8) * (i/6);
+            const frac = (lx + s*0.8) / (s*2.1);
+            const w = Math.sin(frac * Math.PI) * s * 0.42;
+            if (w > 2) {
+              ctx.beginPath();
+              ctx.moveTo(lx, -w);
+              ctx.lineTo(lx, w);
+              ctx.strokeStyle = `rgba(${col},0.12)`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+
+          // Spine line
+          ctx.beginPath();
+          ctx.moveTo(-s*0.75, 0);
+          ctx.lineTo(s*1.25, 0);
+          ctx.strokeStyle = `rgba(${col},0.18)`;
+          ctx.lineWidth = 0.7;
+          ctx.setLineDash([3,4]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          // Lateral lines
+          ctx.beginPath();
+          ctx.moveTo(s*0.9, 0);
+          ctx.bezierCurveTo(s*0.5, -s*0.08, 0, -s*0.12, -s*0.5, -s*0.05);
+          ctx.strokeStyle = `rgba(${col},0.15)`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(s*0.9, 0);
+          ctx.bezierCurveTo(s*0.5, s*0.08, 0, s*0.12, -s*0.5, s*0.05);
+          ctx.stroke();
+
+          // Tail (animated)
+          ctx.save();
+          ctx.translate(-s*0.8, 0);
+          ctx.rotate(ta);
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(-s*0.3, -s*0.15, -s*0.5, -s*0.35, -s*0.6, -s*0.4);
+          ctx.strokeStyle = `rgba(${col},0.4)`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(-s*0.3, s*0.15, -s*0.5, s*0.35, -s*0.6, s*0.4);
+          ctx.stroke();
+          // tail membrane lines
+          for (let i = 1; i < 4; i++) {
+            const f = i / 4;
+            ctx.beginPath();
+            const tx = -s*0.6*f;
+            const ty = s*0.4*f;
+            ctx.moveTo(tx, -ty);
+            ctx.lineTo(tx, ty);
+            ctx.strokeStyle = `rgba(${col},0.1)`;
+            ctx.lineWidth = 0.4;
+            ctx.stroke();
+          }
+          ctx.restore();
+
+          // Pectoral fins
+          const finWave = Math.sin(t*0.006*this.tailSpeed + this.tailPhase)*0.25;
+          ctx.save();
+          ctx.translate(s*0.4, -s*0.25);
+          ctx.rotate(-0.5 + finWave);
+          ctx.beginPath();
+          ctx.ellipse(0, 0, s*0.25, s*0.08, 0, 0, Math.PI*2);
+          ctx.strokeStyle = `rgba(${col},0.25)`;
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+          ctx.restore();
+          ctx.save();
+          ctx.translate(s*0.4, s*0.25);
+          ctx.rotate(0.5 - finWave);
+          ctx.beginPath();
+          ctx.ellipse(0, 0, s*0.25, s*0.08, 0, 0, Math.PI*2);
+          ctx.stroke();
+          ctx.restore();
+
+          // Dorsal fin (top)
+          ctx.beginPath();
+          ctx.moveTo(s*0.2, -s*0.3);
+          ctx.quadraticCurveTo(0, -s*0.55, -s*0.3, -s*0.28);
+          ctx.strokeStyle = `rgba(${col},0.2)`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
+
+          // Eye
+          ctx.beginPath();
+          ctx.arc(s*1.05, -s*0.08, s*0.06, 0, Math.PI*2);
+          ctx.strokeStyle = `rgba(${col},0.6)`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(s*1.06, -s*0.09, s*0.025, 0, Math.PI*2);
+          ctx.fillStyle = `rgba(${col},0.5)`;
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(s*1.05, s*0.08, s*0.06, 0, Math.PI*2);
+          ctx.strokeStyle = `rgba(${col},0.6)`;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(s*1.06, s*0.09, s*0.025, 0, Math.PI*2);
+          ctx.fill();
+
+          // Formula on body
+          ctx.globalAlpha = this.opacity * 1.2;
+          ctx.font = `italic ${s*0.16}px 'DM Serif Display', serif`;
+          ctx.fillStyle = `rgba(${col},0.6)`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(this.formula, s*0.3, 0);
+
+          // Glow
+          ctx.globalAlpha = this.opacity * 0.3;
+          ctx.shadowColor = `rgba(${col},0.4)`;
+          ctx.shadowBlur = 15;
+          ctx.beginPath();
+          ctx.arc(s*0.3, 0, s*0.15, 0, Math.PI*2);
+          ctx.fillStyle = `rgba(${col},0.02)`;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          ctx.restore();
+        }
       }
 
-      for (let i = 0; i < 5; i++) {
-        setTimeout(() => createFish(), i * 3000);
+      const fishes = [];
+      for (let i = 0; i < 8; i++) {
+        const f = new Fish();
+        f.x = Math.random() * canvas.width;
+        fishes.push(f);
       }
-      setInterval(createFish, 8000);
+
+      function loop(t) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const f of fishes) {
+          f.update(t);
+          f.draw(ctx, t);
+        }
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
     })();
 
     // Floating math particles
