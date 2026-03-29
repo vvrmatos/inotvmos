@@ -8,7 +8,7 @@
   <link rel="icon" href="logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1558,6 +1558,55 @@
       opacity: 0.04;
     }
 
+    /* TYPEWRITER FORMULA LAYER */
+    .formula-typewriter-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .tw-formula {
+      position: absolute;
+      font-family: 'DM Mono', 'Courier New', monospace;
+      font-size: 13px;
+      white-space: pre;
+      opacity: 0;
+      color: var(--accent-blue);
+      letter-spacing: 0.5px;
+      line-height: 1.8;
+    }
+
+    .tw-formula.tw-red { color: var(--accent-red); }
+    .tw-formula.tw-yellow { color: var(--accent-yellow); }
+    .tw-formula.tw-muted { color: var(--text-muted); }
+
+    .tw-formula .tw-cursor {
+      display: inline-block;
+      width: 1px;
+      height: 1em;
+      background: currentColor;
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: tw-blink 0.9s step-end infinite;
+    }
+
+    @keyframes tw-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes tw-fade-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: var(--tw-opacity, 0.09); transform: translateY(0); }
+    }
+
+    @keyframes tw-fade-out {
+      from { opacity: var(--tw-opacity, 0.09); }
+      to { opacity: 0; }
+    }
+
     /* Per-section floating accents */
     .section-floats {
       position: absolute;
@@ -1777,6 +1826,9 @@
 
   <!-- GLOBAL FLOATING MATH LAYER -->
   <div class="math-floats" aria-hidden="true" id="mathFloats"></div>
+
+  <!-- TYPEWRITER FORMULA LAYER -->
+  <div class="formula-typewriter-layer" aria-hidden="true" id="twLayer"></div>
 
   <!-- GLOBAL 3D MATH OBJECTS -->
   <div class="math-shapes-global" aria-hidden="true">
@@ -2798,6 +2850,180 @@
   </footer>
 
   <script>
+    // Typewriter formula animations
+    (function() {
+      const layer = document.getElementById('twLayer');
+      if (!layer) return;
+
+      const sequences = [
+        // Euler's identity derivation
+        [
+          'e^(ix) = cos(x) + i·sin(x)',
+          'let x = π',
+          'e^(iπ) = cos(π) + i·sin(π)',
+          'e^(iπ) = -1 + 0',
+          'e^(iπ) + 1 = 0  ∎'
+        ],
+        // Quadratic formula
+        [
+          'ax² + bx + c = 0',
+          'x² + (b/a)x = -c/a',
+          'x² + (b/a)x + (b/2a)² = (b/2a)² - c/a',
+          '(x + b/2a)² = (b² - 4ac) / 4a²',
+          'x = (-b ± √(b²-4ac)) / 2a  ∎'
+        ],
+        // Pythagorean proof
+        [
+          'Consider △ with sides a, b, c',
+          'Area of square = (a+b)²',
+          '(a+b)² = c² + 4·(½ab)',
+          'a² + 2ab + b² = c² + 2ab',
+          'a² + b² = c²  ∎'
+        ],
+        // Derivative of e^x
+        [
+          'f(x) = eˣ',
+          "f'(x) = lim[h→0] (e^(x+h) - eˣ)/h",
+          '= lim[h→0] eˣ·(eʰ - 1)/h',
+          'since lim[h→0] (eʰ-1)/h = 1',
+          "d/dx(eˣ) = eˣ  ∎"
+        ],
+        // Basel problem
+        [
+          'S = 1/1² + 1/2² + 1/3² + 1/4² + …',
+          'sin(x)/x = ∏(1 - x²/n²π²)',
+          'expand and compare x² coefficients:',
+          '-1/6 = -(1/π²)·Σ(1/n²)',
+          'Σ(1/n²) = π²/6  ∎'
+        ],
+        // Gaussian integral
+        [
+          'I = ∫₋∞^∞ e^(-x²) dx',
+          'I² = ∫∫ e^(-(x²+y²)) dx dy',
+          'polar: I² = ∫₀^2π ∫₀^∞ r·e^(-r²) dr dθ',
+          'I² = 2π · [−½ e^(-r²)]₀^∞ = π',
+          'I = √π  ∎'
+        ],
+        // Fibonacci & golden ratio
+        [
+          'F(n) = F(n-1) + F(n-2)',
+          'assume F(n) ≈ φⁿ',
+          'φ² = φ + 1',
+          'φ = (1 + √5) / 2',
+          'φ ≈ 1.6180339…  ∎'
+        ],
+        // Stirling approximation
+        [
+          'n! = ∫₀^∞ xⁿ e^(-x) dx',
+          'let x = n + t√n',
+          'apply Laplace method:',
+          'n! ≈ √(2πn) · (n/e)ⁿ',
+          "Stirling's approximation  ∎"
+        ],
+        // Area of circle
+        [
+          'C(r) = 2πr',
+          'A = ∫₀^R C(r) dr',
+          'A = ∫₀^R 2πr dr',
+          'A = 2π · [r²/2]₀^R',
+          'A = πR²  ∎'
+        ],
+        // Fundamental theorem of calculus
+        [
+          'F(x) = ∫ₐˣ f(t) dt',
+          "F'(x) = lim[h→0] [F(x+h)-F(x)]/h",
+          '= lim[h→0] (1/h)∫ₓ^(x+h) f(t) dt',
+          '= f(x)',
+          '∫ₐᵇ f(x)dx = F(b) - F(a)  ∎'
+        ],
+      ];
+
+      const colorClasses = ['', 'tw-red', 'tw-yellow', 'tw-muted'];
+
+      function pickPosition(el) {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const margin = 60;
+        const side = Math.floor(Math.random() * 4);
+        let x, y;
+        if (side === 0) { x = margin + Math.random() * (vw * 0.25); y = margin + Math.random() * (vh - margin * 2); }
+        else if (side === 1) { x = vw * 0.75 - margin + Math.random() * (vw * 0.25 - margin); y = margin + Math.random() * (vh - margin * 2); }
+        else if (side === 2) { x = margin + Math.random() * (vw - margin * 2); y = margin + Math.random() * (vh * 0.2); }
+        else { x = margin + Math.random() * (vw - margin * 2); y = vh * 0.7 + Math.random() * (vh * 0.2); }
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
+      }
+
+      function typeSequence(seq, onDone) {
+        const el = document.createElement('div');
+        el.className = 'tw-formula ' + colorClasses[Math.floor(Math.random() * colorClasses.length)];
+        const twOpacity = 0.06 + Math.random() * 0.06;
+        el.style.setProperty('--tw-opacity', twOpacity);
+        el.style.fontSize = (11 + Math.random() * 4) + 'px';
+        pickPosition(el);
+        layer.appendChild(el);
+
+        const textSpan = document.createElement('span');
+        const cursorSpan = document.createElement('span');
+        cursorSpan.className = 'tw-cursor';
+        el.appendChild(textSpan);
+        el.appendChild(cursorSpan);
+
+        el.style.animation = 'tw-fade-in 1.5s ease forwards';
+
+        let stepIdx = 0;
+
+        function typeStep() {
+          if (stepIdx >= seq.length) {
+            cursorSpan.remove();
+            setTimeout(function() {
+              el.style.animation = 'tw-fade-out 3s ease forwards';
+              setTimeout(function() { el.remove(); if (onDone) onDone(); }, 3000);
+            }, 4000);
+            return;
+          }
+
+          const line = seq[stepIdx];
+          let charIdx = 0;
+          textSpan.textContent = stepIdx > 0 ? textSpan.textContent + '\n' : '';
+
+          function typeChar() {
+            if (charIdx < line.length) {
+              textSpan.textContent += line[charIdx];
+              charIdx++;
+              setTimeout(typeChar, 50 + Math.random() * 70);
+            } else {
+              stepIdx++;
+              setTimeout(typeStep, 1200 + Math.random() * 800);
+            }
+          }
+          typeChar();
+        }
+
+        setTimeout(typeStep, 800);
+      }
+
+      let activeCount = 0;
+      const maxActive = 3;
+
+      function launchOne() {
+        if (activeCount >= maxActive) return;
+        activeCount++;
+        const seq = sequences[Math.floor(Math.random() * sequences.length)];
+        typeSequence(seq, function() {
+          activeCount--;
+        });
+      }
+
+      for (let i = 0; i < 2; i++) {
+        setTimeout(function() { launchOne(); }, i * 6000);
+      }
+
+      setInterval(function() {
+        launchOne();
+      }, 12000 + Math.random() * 8000);
+    })();
+
     // Floating math particles
     (function() {
       const container = document.getElementById('mathFloats');
