@@ -1,0 +1,34 @@
+# Environment & secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.jks
+credentials.json
+service-account*.json
+*-credentials.json
+
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build artifacts
+dist/
+build/
+*.log
