@@ -2936,6 +2936,70 @@
           '= f(x)',
           '∫ₐᵇ f(x)dx = F(b) - F(a)  ∎'
         ],
+        // Pythagorean trig identity
+        [
+          'On the unit circle: x² + y² = 1',
+          'let x = cos(θ), y = sin(θ)',
+          'cos²(θ) + sin²(θ) = 1',
+          'divide by cos²(θ):',
+          '1 + tan²(θ) = sec²(θ)  ∎'
+        ],
+        // Sine addition formula
+        [
+          'sin(α + β) = ?',
+          'rotate point (cos β, sin β) by α:',
+          'x\' = cos α · cos β − sin α · sin β',
+          'y\' = sin α · cos β + cos α · sin β',
+          'sin(α + β) = sin α cos β + cos α sin β  ∎'
+        ],
+        // Cosine double angle
+        [
+          'cos(2θ) = cos(θ + θ)',
+          '= cos θ · cos θ − sin θ · sin θ',
+          '= cos²θ − sin²θ',
+          'since sin²θ = 1 − cos²θ:',
+          'cos(2θ) = 2cos²θ − 1  ∎'
+        ],
+        // Derivative of sin
+        [
+          'd/dθ sin(θ) = lim[h→0] [sin(θ+h)−sin(θ)]/h',
+          '= lim[h→0] [sin θ cos h + cos θ sin h − sin θ]/h',
+          '= sin θ · lim(cos h−1)/h + cos θ · lim(sin h)/h',
+          '= sin θ · 0 + cos θ · 1',
+          'd/dθ sin(θ) = cos(θ)  ∎'
+        ],
+        // Law of cosines
+        [
+          '△ABC, sides a, b, c opposite ∠A, ∠B, ∠C',
+          'place C at origin, B at (a, 0)',
+          'A = (b cos C, b sin C)',
+          'c² = (a − b cos C)² + (b sin C)²',
+          'c² = a² + b² − 2ab cos C  ∎'
+        ],
+        // Euler formula to trig
+        [
+          'e^(iθ) = cos θ + i sin θ',
+          'e^(−iθ) = cos θ − i sin θ',
+          'add: 2 cos θ = e^(iθ) + e^(−iθ)',
+          'subtract: 2i sin θ = e^(iθ) − e^(−iθ)',
+          'cos θ = ½(e^(iθ) + e^(−iθ))  ∎'
+        ],
+        // sin integral
+        [
+          '∫₀^π sin(θ) dθ',
+          '= [−cos(θ)]₀^π',
+          '= −cos(π) − (−cos(0))',
+          '= −(−1) + 1',
+          '= 2  ∎'
+        ],
+        // Small angle approximations
+        [
+          'as θ → 0:',
+          'sin θ ≈ θ',
+          'cos θ ≈ 1 − θ²/2',
+          'tan θ ≈ θ',
+          'lim[θ→0] sin θ / θ = 1  ∎'
+        ],
       ];
 
       const colorClasses = ['', 'tw-red', 'tw-yellow', 'tw-muted'];
