@@ -369,19 +369,35 @@
       background-size: 40px 40px;
     }
 
-    .about-visual-card .formula {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      color: var(--text-muted);
+    .about-visual-card .quote-block {
       z-index: 1;
-      opacity: 0.6;
-      text-align: center;
-      line-height: 2;
+      text-align: left;
+      padding: 40px;
+      width: 100%;
     }
 
-    .about-visual-card .formula span {
-      color: var(--accent-blue);
-      opacity: 1;
+    .about-visual-card .quote-text {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      position: relative;
+      padding-left: 24px;
+      border-left: 3px solid var(--accent-blue);
+    }
+
+    .about-visual-card .quote-source {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding-left: 24px;
+    }
+
+    .about-visual-card .quote-source span {
+      color: var(--text-secondary);
     }
 
     .about-points {
@@ -1008,10 +1024,9 @@
       <div class="about-visual reveal">
         <div class="about-visual-card">
           <div class="grid-pattern"></div>
-          <div class="formula">
-            f(x) = <span>growth</span><br>
-            &nabla; &middot; <span>strategy</span> = results<br>
-            &Sigma; decisions &rarr; <span>outcomes</span>
+          <div class="quote-block">
+            <p class="quote-text">&ldquo;Mathematics is the language of nature.&rdquo;</p>
+            <p class="quote-source"><span>Max Cohen</span> &mdash; Pi, 1998</p>
           </div>
         </div>
       </div>
