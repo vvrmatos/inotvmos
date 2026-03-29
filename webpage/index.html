@@ -1575,6 +1575,67 @@
       to { transform: rotate(360deg); }
     }
 
+    /* POEM SECTION */
+    .poem-section {
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poem-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(46, 94, 255, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .poem-wrap {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .poem-mark {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--accent-blue);
+      opacity: 0.12;
+      line-height: 1;
+      margin-bottom: -20px;
+    }
+
+    .poem-text {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 2;
+      margin-bottom: 28px;
+    }
+
+    .poem-author {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .poem-author span {
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 768px) {
+      .poem-text { font-size: 1rem; }
+      .poem-section { padding: 80px 0; }
+    }
+
     /* SCROLL ANIMATIONS */
     .reveal {
       opacity: 0;
@@ -2526,6 +2587,26 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POEM -->
+  <section class="poem-section">
+    <div class="container">
+      <div class="poem-wrap reveal">
+        <div class="poem-mark">&ldquo;</div>
+        <p class="poem-text">
+          When I heard the learn&rsquo;d astronomer,<br>
+          When the proofs, the figures, were ranged in columns before me,<br>
+          When I was shown the charts and diagrams, to add, divide, and measure them,<br>
+          When I sitting heard the astronomer where he lectured with much applause in the lecture-room,<br>
+          How soon unaccountable I became tired and sick,<br>
+          Till rising and gliding out I wander&rsquo;d off by myself,<br>
+          In the mystical moist night-air, and from time to time,<br>
+          Look&rsquo;d up in perfect silence at the stars.
+        </p>
+        <p class="poem-author"><span>Walt Whitman</span></p>
       </div>
     </div>
   </section>
