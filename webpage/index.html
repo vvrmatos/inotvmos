@@ -1590,29 +1590,37 @@
     }
 
     .poem-wrap {
-      max-width: 700px;
+      max-width: 640px;
       margin: 0 auto;
-      text-align: center;
+      text-align: left;
       position: relative;
       z-index: 1;
+      padding-left: 32px;
+      border-left: 2px solid rgba(46, 94, 255, 0.15);
     }
 
     .poem-mark {
       font-family: var(--font-display);
-      font-size: 5rem;
+      font-size: 4rem;
       color: var(--accent-blue);
       opacity: 0.12;
       line-height: 1;
-      margin-bottom: -20px;
+      margin-bottom: 8px;
     }
 
-    .poem-text {
+    .poem-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 32px;
+    }
+
+    .poem-line {
       font-family: var(--font-display);
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-style: italic;
       color: var(--text-secondary);
-      line-height: 2;
-      margin-bottom: 28px;
+      line-height: 1.6;
     }
 
     .poem-author {
@@ -1627,8 +1635,9 @@
     }
 
     @media (max-width: 768px) {
-      .poem-text { font-size: 1rem; }
+      .poem-line { font-size: 0.95rem; }
       .poem-section { padding: 80px 0; }
+      .poem-wrap { padding-left: 24px; }
     }
 
     /* SCROLL ANIMATIONS */
@@ -2591,16 +2600,16 @@
     <div class="container">
       <div class="poem-wrap reveal">
         <div class="poem-mark">&ldquo;</div>
-        <p class="poem-text">
-          When I heard the learn&rsquo;d astronomer,<br>
-          When the proofs, the figures, were ranged in columns before me,<br>
-          When I was shown the charts and diagrams, to add, divide, and measure them,<br>
-          When I sitting heard the astronomer where he lectured with much applause in the lecture-room,<br>
-          How soon unaccountable I became tired and sick,<br>
-          Till rising and gliding out I wander&rsquo;d off by myself,<br>
-          In the mystical moist night-air, and from time to time,<br>
-          Look&rsquo;d up in perfect silence at the stars.
-        </p>
+        <div class="poem-lines">
+          <p class="poem-line">When I heard the learn&rsquo;d astronomer,</p>
+          <p class="poem-line">When the proofs, the figures, were ranged in columns before me,</p>
+          <p class="poem-line">When I was shown the charts and diagrams, to add, divide, and measure them,</p>
+          <p class="poem-line">When I sitting heard the astronomer where he lectured with much applause in the lecture-room,</p>
+          <p class="poem-line">How soon unaccountable I became tired and sick,</p>
+          <p class="poem-line">Till rising and gliding out I wander&rsquo;d off by myself,</p>
+          <p class="poem-line">In the mystical moist night-air, and from time to time,</p>
+          <p class="poem-line">Look&rsquo;d up in perfect silence at the stars.</p>
+        </div>
         <p class="poem-author"><span>Walt Whitman</span></p>
       </div>
     </div>
